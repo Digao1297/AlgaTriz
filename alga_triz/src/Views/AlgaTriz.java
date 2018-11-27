@@ -7,6 +7,7 @@ package Views;
 
 import Classes.Operacoes;
 import java.awt.GridLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -18,7 +19,7 @@ public class AlgaTriz extends javax.swing.JFrame {
     private JTextField jt1[][];
     private JTextField jt2[][];
     private JTextField jtR[][];
-    
+
     private Operacoes op;
     private int tamanho = 10;
     private int matrizA[][], matrizB[][];
@@ -29,11 +30,11 @@ public class AlgaTriz extends javax.swing.JFrame {
         jPmatrizA.setLayout(new GridLayout(tamanho, tamanho));
         jPmatrizB.setLayout(new GridLayout(tamanho, tamanho));
         jPMresultado.setLayout(new GridLayout(tamanho, tamanho));
-        
+
         jt1 = new JTextField[tamanho][tamanho];
         jt2 = new JTextField[tamanho][tamanho];
-        jtR= new JTextField[tamanho][tamanho];
-        
+        jtR = new JTextField[tamanho][tamanho];
+
         GerarMatriz1();
         GerarMatriz2();
         GerarMatrizR();
@@ -50,6 +51,7 @@ public class AlgaTriz extends javax.swing.JFrame {
         jPmatrizB = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jBtnSomar = new javax.swing.JButton();
+        jBtnMult = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPMresultado = new javax.swing.JPanel();
 
@@ -116,21 +118,32 @@ public class AlgaTriz extends javax.swing.JFrame {
             }
         });
 
+        jBtnMult.setText("Multiplicar");
+        jBtnMult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnMultActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtnSomar)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnSomar)
+                    .addComponent(jBtnMult))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(129, 129, 129)
                 .addComponent(jBtnSomar)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnMult)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -153,11 +166,11 @@ public class AlgaTriz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGap(0, 359, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(1, 1, 1)
-                    .addComponent(jPMresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addComponent(jPMresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
@@ -197,11 +210,27 @@ public class AlgaTriz extends javax.swing.JFrame {
 
     private void jBtnSomarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSomarActionPerformed
         GetField();
-        op=new Operacoes();
-        
-        
-        SetField(op.Somar(matrizA, matrizB));
+        op = new Operacoes();
+
+        if (matrizA.length == matrizB.length && matrizA[0].length == matrizB[0].length) {
+            SetField(op.Somar(matrizA, matrizB));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "As matrizes precisão ter o mesmo tamanho!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnSomarActionPerformed
+
+    private void jBtnMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMultActionPerformed
+        GetField();
+        op=new Operacoes();
+        System.out.println("A: "+matrizA[0].length+" B: "+matrizB.length);
+        if (matrizA[0].length == matrizB.length) {
+            SetField(op.Multiplicar(matrizA, matrizB));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "O tamanho da linha da matriz A precisa ser igual ao numero da coluna de B!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnMultActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -235,63 +264,65 @@ public class AlgaTriz extends javax.swing.JFrame {
         });
     }
 
-    private void GetField(){
-        int linA=0,colA=0,linB=0,colB=0;
-        
+    private void GetField() {
+        int linA = 0, colA = 0, linB = 0, colB = 0;
+
         for (int i = 0; i < tamanho; i++) {
             if (!jt1[i][0].getText().trim().equals("")) {
                 linA++;
-                
-            } if (!jt2[i][0].getText().trim().equals("")) {
+
+            }
+            if (!jt2[i][0].getText().trim().equals("")) {
                 linB++;
-                
+
             }
         }
         for (int i = 0; i < tamanho; i++) {
             if (!jt1[0][i].getText().trim().equals("")) {
                 colA++;
-                
+
             }
             if (!jt2[0][i].getText().trim().equals("")) {
                 colB++;
-                
+
             }
         }
-        
-        matrizA=new int[linA][colA];
-        matrizB=new int[linB][colB];
-        
+
+        matrizA = new int[linA][colA];
+        matrizB = new int[linB][colB];
+
         for (int i = 0; i < linA; i++) {
             for (int j = 0; j < colA; j++) {
-                matrizA[i][j]=Integer.parseInt(jt1[i][j].getText());
+                matrizA[i][j] = Integer.parseInt(jt1[i][j].getText());
             }
         }
         for (int i = 0; i < linB; i++) {
             for (int j = 0; j < colB; j++) {
-                matrizB[i][j]=Integer.parseInt(jt2[i][j].getText());
+                matrizB[i][j] = Integer.parseInt(jt2[i][j].getText());
             }
         }
-          
+
     }
-    
-    
-    private void SetField(int[][] r){
-        int linha=0,coluna=0;
-        
-        if (r.length>0) {
-            linha=r.length;
-        }if (r[0].length>0) {
-            coluna=r[0].length;
-            
+
+    private void SetField(int[][] r) {
+        int linha = 0, coluna = 0;
+
+        if (r.length > 0) {
+            linha = r.length;
         }
-        
-        for (int i = 0; i <linha ; i++) {
+        if (r[0].length > 0) {
+            coluna = r[0].length;
+
+        }
+
+        for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
                 jtR[i][j].setText(Integer.toString(r[i][j]));
             }
         }
-        
+
     }
+
     public void GerarMatriz1() {
 
         for (int i = 0; i < tamanho; i++) {
@@ -319,7 +350,8 @@ public class AlgaTriz extends javax.swing.JFrame {
         }
 
     }
-public void GerarMatrizR() {
+
+    public void GerarMatrizR() {
 
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
@@ -334,6 +366,7 @@ public void GerarMatrizR() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnMult;
     private javax.swing.JButton jBtnSomar;
     private javax.swing.JPanel jPMresultado;
     private javax.swing.JPanel jPanel1;
