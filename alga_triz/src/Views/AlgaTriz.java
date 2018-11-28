@@ -52,6 +52,8 @@ public class AlgaTriz extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jBtnSomar = new javax.swing.JButton();
         jBtnMult = new javax.swing.JButton();
+        jLteste = new javax.swing.JLabel();
+        jBtnDet = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPMresultado = new javax.swing.JPanel();
 
@@ -125,25 +127,44 @@ public class AlgaTriz extends javax.swing.JFrame {
             }
         });
 
+        jBtnDet.setText("Determinante");
+        jBtnDet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnDetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnSomar)
-                    .addComponent(jBtnMult))
-                .addContainerGap(276, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnSomar)
+                            .addComponent(jBtnMult)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jLteste, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtnDet)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(36, 36, 36)
+                .addComponent(jLteste, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(jBtnSomar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnMult)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnDet)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -166,11 +187,11 @@ public class AlgaTriz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(1, 1, 1)
-                    .addComponent(jPMresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                    .addComponent(jPMresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
@@ -223,7 +244,7 @@ public class AlgaTriz extends javax.swing.JFrame {
     private void jBtnMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMultActionPerformed
         GetField();
         op=new Operacoes();
-        System.out.println("A: "+matrizA[0].length+" B: "+matrizB.length);
+        //System.out.println("A: "+matrizA[0].length+" B: "+matrizB.length);
         if (matrizA[0].length == matrizB.length) {
             SetField(op.Multiplicar(matrizA, matrizB));
 
@@ -231,6 +252,17 @@ public class AlgaTriz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "O tamanho da linha da matriz A precisa ser igual ao numero da coluna de B!!!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnMultActionPerformed
+
+    private void jBtnDetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDetActionPerformed
+        op=new Operacoes();
+        GetField();
+        if (matrizA.length==matrizA[0].length) {
+            jLteste.setText("Determinante: "+Integer.toString(op.Determinante(matrizA)));
+        }else{
+            JOptionPane.showMessageDialog(null, "A matriz precisa ser quadrada ou unica!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jBtnDetActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -366,8 +398,10 @@ public class AlgaTriz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnDet;
     private javax.swing.JButton jBtnMult;
     private javax.swing.JButton jBtnSomar;
+    private javax.swing.JLabel jLteste;
     private javax.swing.JPanel jPMresultado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

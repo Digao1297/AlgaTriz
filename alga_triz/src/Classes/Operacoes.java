@@ -77,5 +77,34 @@ public class Operacoes {
         return resultado;
 
     }
+    
+    public int Determinante(int[][] a){
+       int resultado=0;
+       int aLinha = 0, aColuna = 0;
+       
+        if (a.length > 0) {
+            aLinha = a.length;
+        }
+        if (a[0].length > 0) {
+            aColuna = a[0].length;
+        }
+        if (aLinha==1&&aColuna==1) {
+            resultado=a[0][0];
+        }else if (aLinha==2&&aColuna==2) {
+           
+            
+        }else {
+            
+        }
+       
+       
+       
+       
+       return resultado; 
+               
+    }
+    
 
+    
+   
 }
