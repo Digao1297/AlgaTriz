@@ -8,6 +8,10 @@ package Classes;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import oracle.jrockit.jfr.events.Bits;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 
 /**
  *
@@ -79,51 +83,21 @@ public class Operacoes {
 
     }
 
-    public int Determinante(int[][] a) {
-
-        int aLinha = 0, aColuna = 0;
-
-        if (a.length > 0) {
-            aLinha = a.length;
-        }
-        if (a[0].length > 0) {
-            aColuna = a[0].length;
-        }
-        if (aLinha == 1 && aColuna == 1) {
-            resultado = a[0][0];
-        } else if (aLinha == 2 && aColuna == 2) {
-            resultado = (a[0][0] * a[1][1]) - (a[0][1] * a[1][0]);
-
-        } else {
-            for (int i = 0; i < a.length; i++) {
-                resultado += a[0][i] * Cofator(a, 0, i);
-                System.out.println(resultado);
-            }
-
-        }
-
-        return resultado;
-
-    }
-
-    private int Cofator(int[][] a, int lin, int col) {
-        int subA[][] = null;
-        int m = 0;
-        for (int i = 1; i < a.length; i++) {
-            subA = new int[a.length][a.length];
-
+    
+    public int Determinante(int[][]a){
+        
+        double aux[][]=new double[a.length][a[0].length];
+        for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a.length; j++) {
-                if (col != j) {
-                    subA[m][j] = a[i][j];
-                }
+                aux[i][j]=a[i][j];
             }
-            m++;
         }
-        int aux = (int) Math.pow(-1.0, col + lin);
-        int x = (aux * Determinante(subA));
-        System.out.println(x);
-        return x;
-
+        
+        RealMatrix m=new Array2DRowRealMatrix(aux);
+        double x=new LUDecomposition(m).getDeterminant();
+       
+       return (int)x;
     }
-
+    
+   
 }
