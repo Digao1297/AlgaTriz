@@ -45,6 +45,30 @@ public class Operacoes {
 
     }
 
+    public int[][] Subtrair(int a[][], int b[][]) {
+
+        int resultado[][] = null;
+        int aLinha = 0, aColuna = 0;
+
+        if (a.length > 0) {
+            aLinha = a.length;
+        }
+        if (a[0].length > 0) {
+            aColuna = a[0].length;
+        }
+
+        resultado = new int[aLinha][aColuna];
+
+        for (int i = 0; i < aLinha; i++) {
+            for (int j = 0; j < aColuna; j++) {
+                resultado[i][j] = (a[i][j] - b[i][j]);
+            }
+        }
+
+        return resultado;
+
+    }
+
     public int[][] Multiplicar(int a[][], int b[][]) {
 
         int resultado[][] = null;
@@ -83,21 +107,19 @@ public class Operacoes {
 
     }
 
-    
-    public int Determinante(int[][]a){
-        
-        double aux[][]=new double[a.length][a[0].length];
+    public int Determinante(int[][] a) {
+
+        double aux[][] = new double[a.length][a[0].length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a.length; j++) {
-                aux[i][j]=a[i][j];
+                aux[i][j] = a[i][j];
             }
         }
-        
-        RealMatrix m=new Array2DRowRealMatrix(aux);
-        double x=new LUDecomposition(m).getDeterminant();
-       
-       return (int)x;
+
+        RealMatrix m = new Array2DRowRealMatrix(aux);
+        double x = new LUDecomposition(m).getDeterminant();
+
+        return (int) x;
     }
-    
-   
+
 }
